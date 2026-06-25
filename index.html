@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waifu Chat ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="setup">
+  <div class="sc">
+    <div class="sc-avs">
+      <img src="https://i.pravatar.cc/150?img=11" alt="Waguri">
+      <img src="https://i.pravatar.cc/150?img=12" alt="Tenka">
+      <img src="https://i.pravatar.cc/150?img=13" alt="Hu Tao">
+      <img src="https://i.pravatar.cc/150?img=14" alt="Ruby">
+      <img src="https://i.pravatar.cc/150?img=15" alt="Elaina">
+    </div>
+    <div class="sc-icon">🌸</div>
+    <h1 class="sc-title">Waifu Chat</h1>
+    <p class="sc-sub">5 waifu siap menemanimu~ Masukkan Groq API key dulu!</p>
+    <label class="sc-lbl">Groq API Key</label>
+    <input type="password" id="api-inp" class="sc-inp" placeholder="gsk_xxxxxxxxxxxxxxxx" onkeydown="if(event.key==='Enter')saveKey()">
+    <p class="sc-hint">Dapatkan gratis di <a href="https://console.groq.com" target="_blank">console.groq.com</a><br>🔒 Key disimpan di localStorage</p>
+    <button class="sc-btn" onclick="saveKey()">✨ Mulai Chat</button>
+    <p class="sc-err" id="sc-err"></p>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+
+<div id="app" class="hidden">
+  <div class="header">
+    <img class="hdr-av" id="hdr-av" src="" alt="">
+    <div class="hdr-info">
+      <div class="hdr-name" id="hdr-name">Waifu Chat ✨</div>
+      <div class="hdr-status" id="hdr-status">Pilih waifu untuk mulai~</div>
+    </div>
+    <button class="hdr-btn" onclick="changeKey()" title="Ganti API Key">🔑</button>
+  </div>
+
+  <div class="chat-area" id="chat-area">
+    <div class="empty-s">
+      <div class="ei">🌸</div>
+      <h2>Waifu Chat</h2>
+      <p>Tekan tombol di bawah untuk<br>memilih karakter favoritmu~</p>
+    </div>
+  </div>
+
+  <div class="input-bar">
+    <button class="clr-btn" onclick="clearChat()" title="Hapus chat">🗑</button>
+    <textarea id="msg-inp" class="inp-field" rows="1" placeholder="Ketik pesan..." onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="send-btn" id="send-btn" onclick="sendMsg()" disabled>➤</button>
+  </div>
+
+  <div class="bottom-bar">
+    <button class="toggle-btn" id="toggle-btn" onclick="togglePanel()">
+      <img class="tb-av" id="tb-av" src="" alt="">
+      <span id="tb-label">🌸 Pilih Waifu</span>
+      <span class="tb-chev">▲</span>
+    </button>
+  </div>
+
+  <div class="waifu-panel" id="waifu-panel">
+    <div class="panel-hdr">
+      <span class="panel-title">✨ Pilih Waifumu</span>
+      <button class="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="panel-grid" id="panel-grid"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
