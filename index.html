@@ -1,55 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS AI</title>
+
+    <!-- ===== FIREBASE SDK ===== -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore-compat.js"></script>
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: sans-serif;
             background: #0d1117;
-            color: white;
+            color: #e6edf3;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
         }
-        input, button {
-            padding: 12px;
-            margin: 8px;
-            border-radius: 8px;
-            border: 1px solid #333;
+        .container {
             background: #161b22;
-            color: white;
-            font-size: 16px;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #21262d;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #00ffe0;
+            margin-bottom: 8px;
+        }
+        p {
+            color: #8b949e;
+            margin-bottom: 16px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #21262d;
+            background: #0d1117;
+            color: #e6edf3;
+            font-size: 14px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #00ffe0;
         }
         button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
             background: #7c3aed;
             color: white;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
         button:hover {
             background: #6d28d9;
+        }
+        #status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #8b949e;
         }
     </style>
 </head>
 <body>
 
+<div class="container">
     <h1>⬡ NEXUS AI</h1>
-    <p>Masukkan API Key:</p>
-    <input id="api-input" type="text" placeholder="Ketik di sini...">
+    <p>Masukkan Groq API Key untuk mulai.</p>
+    <input id="api-input" type="text" placeholder="Masukkan API Key...">
     <button id="enter-btn">ENTER</button>
+    <div id="status"></div>
+</div>
 
-    <script>
-        // Kode paling simpel buat tes tombol
-        document.getElementById('enter-btn').addEventListener('click', function() {
-            const key = document.getElementById('api-input').value;
-            if (key.trim() === '') {
-                alert('Masukkan API Key dulu!');
-            } else {
-                alert('API Key: ' + key);
-            }
-        });
-    </script>
-
+<script src="script.js"></script>
 </body>
 </html>
