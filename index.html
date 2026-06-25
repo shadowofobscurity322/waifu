@@ -1,26 +1,55 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXUS AI</title>
-  <link rel="stylesheet" href="style.css">
+    <title>NEXUS AI</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #0d1117;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        input, button {
+            padding: 12px;
+            margin: 8px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #161b22;
+            color: white;
+            font-size: 16px;
+        }
+        button {
+            background: #7c3aed;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #6d28d9;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">⬡ NEXUS AI</div>
-</header>
+    <h1>⬡ NEXUS AI</h1>
+    <p>Masukkan API Key:</p>
+    <input id="api-input" type="text" placeholder="Ketik di sini...">
+    <button id="enter-btn">ENTER</button>
 
-<div id="chat">
-  <div class="msg"><div class="bubble">Halo! Masukkan Groq API Key untuk mulai.</div></div>
-</div>
+    <script>
+        // Kode paling simpel buat tes tombol
+        document.getElementById('enter-btn').addEventListener('click', function() {
+            const key = document.getElementById('api-input').value;
+            if (key.trim() === '') {
+                alert('Masukkan API Key dulu!');
+            } else {
+                alert('API Key: ' + key);
+            }
+        });
+    </script>
 
-<div class="input-area">
-  <input id="api-input" type="text" placeholder="Masukkan Groq API Key...">
-  <button id="enter-btn">ENTER</button>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
